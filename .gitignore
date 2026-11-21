@@ -1,0 +1,29 @@
+# Unity generates these folders itself. Never commit them:
+# they are huge, machine-specific, and rebuilt automatically when you open the project.
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Bb]uild/
+/[Bb]uilds/
+/[Ll]ogs/
+/[Uu]ser[Ss]ettings/
+/[Mm]emoryCaptures/
+
+# IDE / OS clutter
+.vs/
+.idea/
+*.csproj
+*.sln
+*.suo
+*.user
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+.DS_Store
+
+# NOTE: .meta files are NOT ignored. Unity uses them to remember each asset's
+# unique ID (GUID). If you lose a .meta file, every reference to that asset breaks.
