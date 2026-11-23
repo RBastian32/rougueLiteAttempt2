@@ -1,6 +1,7 @@
 using System;
 using System.Text;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace Roguelite.Dungeon
 {
@@ -45,6 +46,15 @@ namespace Roguelite.Dungeon
         //           Vector2Int has no named diagonals; write them as new Vector2Int(1, 1), etc.
         public static readonly Vector2Int[] Directions8 =
         {
+            Vector2Int.up,
+            Vector2Int.right,
+            Vector2Int.down,
+            Vector2Int.left,
+            new Vector2Int(1, 1),
+            new Vector2Int(-1, -1),
+            new Vector2Int(-1 ,1),
+            new Vector2Int(1, -1)
+
         };
 
         // "{ get; }" = read-only from outside. It can only be set inside the constructor.
@@ -59,10 +69,17 @@ namespace Roguelite.Dungeon
             // TODO B1: (1) If width or height is less than 1, throw an ArgumentException.
             //              This is called a "guard clause": fail fast with a clear message
             //              instead of breaking strangely later.
+            if(width < 1 || height < 1)
+            {
+                throw new ArgumentException($"MapGrid must be atleast 1x1, but got {width} x {height}");
+            }
             //          (2) Store width and height in the Width and Height properties.
+            Width = width;
+            Height = height;
             //          (3) Create the tiles array with the right size.
             //          Then delete the line below.
-            throw new NotImplementedException("TODO B1: implement the MapGrid constructor");
+            tiles = new TileType[width, height];
+            
         }
 
         // Is (x, y) inside the grid?
