@@ -87,7 +87,11 @@ namespace Roguelite.Dungeon
         {
             // TODO B2: Return true only if 0 <= x < Width AND 0 <= y < Height.
             //          Watch the edges: x == Width is OUTSIDE, because indexes start at 0.
-            return false;
+            if (x >= 0 && x < Width && y >= 0 && y < Height)
+            {
+                return true;
+            }
+            else return false;
         }
 
         // Read a cell.
@@ -99,6 +103,10 @@ namespace Roguelite.Dungeon
             //           Why return Wall instead of crashing? Pretend the whole world outside
             //           the map is solid rock. Then code like "is my neighbour a floor?" works
             //           even at the edges, with no special cases. This is called a "sentinel" value.
+            if (InBounds(x, y))
+            {
+                return tiles[x, y];
+            }
             return TileType.Wall;
         }
 
@@ -107,12 +115,23 @@ namespace Roguelite.Dungeon
         {
             // TODO B3b: If (x, y) is in bounds, store the type in the array.
             //           If it's out of bounds, do nothing (silently ignore it).
+            if (InBounds(x, y))
+            {
+                tiles[x, y] = type;
+            }
         }
 
         // Set every cell in the grid to one type.
         public void Fill(TileType type)
         {
             // TODO B4: Use two nested for-loops (one for x, one for y) to set every cell.
+            for (int x = 0; x < Width; x++)
+            {
+                for (int y = 0; y < Height; y++)
+                {
+                    Set(x, y, type);
+                }
+            }
         }
 
         // Set every cell inside a rectangle to one type. Any part outside the grid is ignored.
@@ -124,6 +143,13 @@ namespace Roguelite.Dungeon
             //
             //          "xMin inclusive, xMax exclusive" is called a half-open range. A rect at
             //          x = 2 with width 3 covers x = 2, 3, 4, and xMax is 5.
+            for (int x = rect.xMin; x < rect.xMax; x++)
+            {
+                for (int y = rect.yMin; y < rect.yMax; y++)
+                {
+                    Set(x, y, type);
+                }
+            }
         }
 
         // How many of the cells touching (x, y) are of the given type?
@@ -135,7 +161,16 @@ namespace Roguelite.Dungeon
             //           (2) Loop over the offsets. For each one, look at the cell at
             //               (x + offset.x, y + offset.y) using Get(), and count the matches.
             //           (3) Return the count.
-            return 0;
+            Vector2Int[] directions = includeDiagonals ? Directions8 : Directions4;
+            int count = 0;
+            foreach (Vector2Int offset in directions)
+            {
+                if (Get(x + offset.x, y + offset.y) == type)
+                {
+                    count++;
+                }
+            }
+            return count;
         }
 
         // Turns the grid into text so you can Debug.Log(grid) and SEE it in the Console.
