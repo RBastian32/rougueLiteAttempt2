@@ -39,29 +39,17 @@ public class NeighbourDebugger : MonoBehaviour
         {
             Vector3 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
             Vector3Int cellPos = tilemap.WorldToCell(mousePos);
-            Debug.Log($"Mouse clicked at cell: {cellPos}");
-            Debug.Log($"Tile type at cell: {mapRenderer.Grid.Get(cellPos.x, cellPos.y)}");
+            // Ask the grid everything first, storing each answer in a local variable...
             TileType type = mapRenderer.Grid.Get(cellPos.x, cellPos.y);
-            if(type == TileType.Wall)
-            {
-                Debug.Log("This is a wall tile.");
-            }
-            else if (type == TileType.Floor)
-            {
-                Debug.Log("This is a floor tile.");
-            }
-            else
-            {
-                Debug.Log("This is an unknown tile type.");
-            }
-            int wallNeighbors8way = mapRenderer.Grid.CountNeighbors(cellPos.x, cellPos.y, TileType.Wall, true);
-            Debug.Log($"Number of wall neighbors (including diagonals): {wallNeighbors8way}");
-            int floorNeighbors8way = mapRenderer.Grid.CountNeighbors(cellPos.x, cellPos.y, TileType.Floor, true);
-            Debug.Log($"Number of floor neighbors (including diagonals): {floorNeighbors8way}");
             int wallNeighbors4way = mapRenderer.Grid.CountNeighbors(cellPos.x, cellPos.y, TileType.Wall, false);
-            Debug.Log($"Number of wall neighbors (excluding diagonals): {wallNeighbors4way}");
+            int wallNeighbors8way = mapRenderer.Grid.CountNeighbors(cellPos.x, cellPos.y, TileType.Wall, true);
             int floorNeighbors4way = mapRenderer.Grid.CountNeighbors(cellPos.x, cellPos.y, TileType.Floor, false);
-            Debug.Log($"Number of floor neighbors (excluding diagonals): {floorNeighbors4way}");
+            int floorNeighbors8way = mapRenderer.Grid.CountNeighbors(cellPos.x, cellPos.y, TileType.Floor, true);
+
+            // ...then print it all as ONE Console entry per click.
+            Debug.Log($"Cell ({cellPos.x}, {cellPos.y}): {type} | " +
+                      $"walls {wallNeighbors4way} (4-way), {wallNeighbors8way} (8-way) | " +
+                      $"floors {floorNeighbors4way} (4-way), {floorNeighbors8way} (8-way)");
         }
     }
 }
