@@ -9,6 +9,7 @@ game folders (`Assets/_Project/Scripts/...`), because every lab builds a piece o
 |---|---|---|
 | **Lecture slides** (link below) | The main lecture. Self-contained: every unit opens with the problem it solves, then definitions, examples, code, use cases and common mistakes | Your primary study material. |
 | **Guided-notes slides** (link below) | The same slides with key words, definitions and answers blanked out. Answers are in each slide's speaker notes | Fill in as you go through the lecture slides. Download as PDF to write on. |
+| **Lab preview slides** (from Lesson 3) | Warm-paper slides at the end of each unit: the plan, the API calls and a code skeleton for each TODO, with the key lines left for you | Read with the lecture; come back to them before opening HINTS.md. |
 | `LECTURE.md` | Written reference notes covering the same material, plus a glossary and exam-style review problems | For looking things up, and review before the lab. |
 | `README.md` | The **lab handout**: pre-lab questions, editor setup, TODO exercises, challenges | After the lecture, when it's time to code. |
 | `HINTS.md` | Nudges for each TODO | When stuck for 15+ minutes. |
@@ -44,7 +45,7 @@ game folders (`Assets/_Project/Scripts/...`), because every lab builds a piece o
 |---|---|---|---|
 | 1 | MonoBehaviour lifecycle, physics, vectors | Player movement | ✅ |
 | 2 | [Spatial data: time, vectors, grids, Tilemaps](02-grid-and-tilemap/LECTURE.md) · [lecture slides](https://claude.ai/artifact/4WEHL1yUd5v2KUy2oSiKQP) · [guided notes](https://claude.ai/artifact/FwxucXJn12wV3n6R9VXWej) | [Lab 2](02-grid-and-tilemap/README.md): camera, map grid, renderer (+ all 6 challenges) | ✅ |
-| 3 | Procedural generation: seeded randomness, random walk, BSP | Dungeon generator | 👉 next |
+| 3 | [Procedural generation: seeds, random walk, recursion, BSP](03-procedural-generation/LECTURE.md) · [lecture slides](https://claude.ai/artifact/7yhR4sMjhn72CYKUPDYw9k) · [guided notes](https://claude.ai/artifact/FVufEG56hJnzX9TRcf75UY) | [Lab 3](03-procedural-generation/README.md): random walk, corridors, BSP, generator | 👉 current |
 | 4 | Graphs: adjacency, minimum spanning trees, BFS | Linking rooms | |
 | 5 | AI: state machines, A* pathfinding, priority queues | Enemies | |
 | 6 | Events, delegates, interfaces | Combat & health | |
