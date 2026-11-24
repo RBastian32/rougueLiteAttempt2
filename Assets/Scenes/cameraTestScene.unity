@@ -3336,7 +3336,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ed70e28ed7d547879855960cfa2a9c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 20
+  width: 40
   height: 20
   floorTilemap: {fileID: 1732874043}
   wallTilemap: {fileID: 1138666932}
