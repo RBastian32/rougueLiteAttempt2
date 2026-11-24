@@ -60,7 +60,7 @@ and 0.5.
 
 ---
 
-## Exercise B: The map grid
+## Exercise B: The map grid ✅ (completed)
 
 **Concepts:** enums and default values (§2.4), arrays and 2D grids (§4.1–4.3), Big-O (§4.4),
 bounds checks, guard clauses and sentinels (§6), neighbourhoods and direction arrays (§7),
@@ -90,7 +90,7 @@ encapsulation (§8), unit tests (§9).
 
 ---
 
-## Exercise C: Drawing the map
+## Exercise C: Drawing the map ✅ (completed)
 
 **Concepts:** coordinate systems and conversion (§5), Tilemap components (§10.1),
 painting from code (§10.2), tilemap collision (§10.3), serialized references (§10.4).
@@ -135,7 +135,7 @@ and the camera follows. Commit and push. 🎉
 
 ---
 
-## Challenges (optional, no solutions)
+## Challenges (optional, no solutions) ✅ (all 6 completed)
 
 1. **Pillars.** Add several 2 × 2 wall pillars inside the room.
 2. **Two rooms and a corridor.** Connect them with a 1-tile hallway (a preview of Lecture 3).

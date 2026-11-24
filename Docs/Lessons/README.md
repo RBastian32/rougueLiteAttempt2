@@ -43,8 +43,8 @@ game folders (`Assets/_Project/Scripts/...`), because every lab builds a piece o
 | # | Lecture | Lab | Status |
 |---|---|---|---|
 | 1 | MonoBehaviour lifecycle, physics, vectors | Player movement | ✅ |
-| 2 | [Spatial data: time, vectors, grids, Tilemaps](02-grid-and-tilemap/LECTURE.md) · [lecture slides](https://claude.ai/artifact/4WEHL1yUd5v2KUy2oSiKQP) · [guided notes](https://claude.ai/artifact/FwxucXJn12wV3n6R9VXWej) | [Lab 2](02-grid-and-tilemap/README.md): camera, map grid, renderer | 👉 current |
-| 3 | Procedural generation: seeded randomness, random walk, BSP | Dungeon generator | |
+| 2 | [Spatial data: time, vectors, grids, Tilemaps](02-grid-and-tilemap/LECTURE.md) · [lecture slides](https://claude.ai/artifact/4WEHL1yUd5v2KUy2oSiKQP) · [guided notes](https://claude.ai/artifact/FwxucXJn12wV3n6R9VXWej) | [Lab 2](02-grid-and-tilemap/README.md): camera, map grid, renderer (+ all 6 challenges) | ✅ |
+| 3 | Procedural generation: seeded randomness, random walk, BSP | Dungeon generator | 👉 next |
 | 4 | Graphs: adjacency, minimum spanning trees, BFS | Linking rooms | |
 | 5 | AI: state machines, A* pathfinding, priority queues | Enemies | |
 | 6 | Events, delegates, interfaces | Combat & health | |
