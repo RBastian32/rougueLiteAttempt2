@@ -51,7 +51,8 @@ namespace Roguelite.Dungeon
                 return;
             }
 
-            Grid = CreateTestRoom();
+            //Grid = CreateTestRoom();
+            Grid = CreateTwoRooms();
             Debug.Log("Built map:\n" + Grid);   // Uses MapGrid.ToString() from Exercise B.
             Draw(Grid);
             PlacePlayer();
@@ -92,6 +93,44 @@ namespace Roguelite.Dungeon
             grid.FillRect(new RectInt(rightX, bottomY, pillarSize, pillarSize), TileType.Wall);
             grid.FillRect(new RectInt(leftX, topY, pillarSize, pillarSize), TileType.Wall);
             grid.FillRect(new RectInt(rightX, topY, pillarSize, pillarSize), TileType.Wall);
+
+            return grid;
+        }
+
+        // CHALLENGE 2: two rooms side by side, joined by a 3-tile-wide corridor.
+        // Designed for a 40 x 20 map (set Width = 40, Height = 20 on the Map object).
+        //
+        //   room A: columns 2-15, rows 4-15     room B: columns 24-37, rows 3-16
+        //   corridor: rows 9-11, columns 16-23 (fills the rock between the rooms)
+        private MapGrid CreateTwoRooms()
+        {
+            var grid = new MapGrid(width, height);   // starts as solid Wall
+
+            // 1. The rooms: read off the sketch as (first column, first row, width, height),
+            //    where width = last - first + 1.
+            RectInt roomA = new RectInt(2, 4, 14, 12);    // columns 2-15, rows 4-15
+            RectInt roomB = new RectInt(24, 3, 14, 14);   // columns 24-37, rows 3-16
+
+            // 2. The corridor is worked out FROM the rooms, so it always fills the gap exactly.
+            //    xMax is one PAST a room's last column (half-open), which is exactly where the
+            //    corridor should start.
+            //
+            //    The player's collider is 1 x 1 tile, so a 1-tile corridor is a tight squeeze.
+            //    corridorWidth = 3 gives room to spare. It's centred on the middle row (10):
+            //    starting 1 row below gives rows 9, 10, 11. All three rows are inside both
+            //    rooms, and row 10 still passes through the map's centre cell (20, 10),
+            //    which is where PlacePlayer spawns you.
+            const int corridorWidth = 3;
+            int corridorY = height / 2 - corridorWidth / 2;   // 10 - 1 = 9: bottom row of the corridor
+            int corridorX = roomA.xMax;                       // 16: first column after room A
+            int corridorLength = roomB.xMin - roomA.xMax;     // 24 - 16 = 8 cells (16-23)
+            RectInt corridor = new RectInt(corridorX, corridorY, corridorLength, corridorWidth);
+
+            // 3. Carve them out of the rock. Nothing overlaps a wall we want to keep,
+            //    so the order of these three calls doesn't matter.
+            grid.FillRect(roomA, TileType.Floor);
+            grid.FillRect(roomB, TileType.Floor);
+            grid.FillRect(corridor, TileType.Floor);
 
             return grid;
         }
