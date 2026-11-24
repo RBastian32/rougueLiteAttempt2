@@ -61,8 +61,11 @@ namespace Roguelite.Dungeon
         public int Width { get; }
         public int Height { get; }
 
-        // The actual storage: a 2D array. tiles[x, y] is the cell at column x, row y.
-        private TileType[,] tiles;
+        // The grid is stored as a 1D array, indexed as y * Width + x. 
+        // This is faster than a 2D array, and easier to serialize in Unity. 
+        // The array is private; outside code must use Get/Set so out-of-bounds cells can be treated as Wall.
+        private TileType[] tiles;
+        private int Size => Width * Height;
 
         public MapGrid(int width, int height)
         {
@@ -77,8 +80,7 @@ namespace Roguelite.Dungeon
             Width = width;
             Height = height;
             //          (3) Create the tiles array with the right size.
-            //          Then delete the line below.
-            tiles = new TileType[width, height];
+            tiles = new TileType[Size];
             
         }
 
@@ -105,7 +107,7 @@ namespace Roguelite.Dungeon
             //           even at the edges, with no special cases. This is called a "sentinel" value.
             if (InBounds(x, y))
             {
-                return tiles[x, y];
+                return tiles[y * Width + x];
             }
             return TileType.Wall;
         }
@@ -117,7 +119,7 @@ namespace Roguelite.Dungeon
             //           If it's out of bounds, do nothing (silently ignore it).
             if (InBounds(x, y))
             {
-                tiles[x, y] = type;
+                tiles[y * Width + x] = type;
             }
         }
 
