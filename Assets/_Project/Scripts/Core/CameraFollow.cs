@@ -57,17 +57,22 @@ namespace Roguelite.Core
                 float minY = halfHeight;
                 float maxY = mapRenderer.Grid.Height - halfHeight;
 
+                if(maxX < minX)
+                {
+                    // The map is narrower than the camera's width. Center it.
+                    minX = maxX = mapRenderer.Grid.Width / 2f;
+                }
+                if(maxY < minY)
+                {
+                    // The map is shorter than the camera's height. Center it.
+                    minY = maxY = mapRenderer.Grid.Height / 2f;
+                }
                 
                 goal.x = Mathf.Clamp(goal.x, minX, maxX);
                 goal.y = Mathf.Clamp(goal.y, minY, maxY);
                 
+                
             }
-
-            // TODO A2: Work out where the camera WANTS to be.
-            //          It should match the target's x and y, but KEEP the camera's own z.
-            //          (A 2D camera sits at z = -10 looking "into" the screen. If you copy
-            //          the player's z of 0, the camera would be inside the sprites and show nothing.)
-            
             // TODO A3: Move the camera part of the way there using Vector3.SmoothDamp,
             //          and assign the result to transform.position.
             //          Signature: Vector3.SmoothDamp(current, targetPosition, ref velocity, smoothTime)
