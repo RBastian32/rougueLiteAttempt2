@@ -11,28 +11,43 @@ public class NeighbourDebugger : MonoBehaviour
     [SerializeField] private Tilemap tilemap;
     [SerializeField] private MapRenderer mapRenderer;
 
-
+    void Start()
+    {
+        if(cam == null)
+        {
+            cam = Camera.main;
+        }
+        if(mapRenderer == null)
+        {
+            mapRenderer = GetComponent<MapRenderer>();
+        }
+        if(cam == null || tilemap == null || mapRenderer == null)
+        {
+            Debug.LogError("NeighbourDebugger: Missing references. Please assign Camera, Tilemap, and MapRenderer in the Inspector.", this);
+            enabled = false; // Disable this script to prevent further errors
+        }
+    }
     // Update is called once per frame
     void Update()
     {
-        if(cam == null || tilemap == null || mapRenderer == null)
+        if(mapRenderer.Grid == null)
         {
-            Debug.LogError("NeighbourDebugger: assign Camera, Tilemap, and MapRenderer in the Inspector.", this);
+            Debug.LogWarning("NeighbourDebugger: MapRenderer's Grid is null. Make sure the map is built before clicking.", this);
             return;
         }
-        
-        
+
         if(Input.GetMouseButtonDown(0))
         {
             Vector3 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
             Vector3Int cellPos = tilemap.WorldToCell(mousePos);
             Debug.Log($"Mouse clicked at cell: {cellPos}");
             Debug.Log($"Tile type at cell: {mapRenderer.Grid.Get(cellPos.x, cellPos.y)}");
-            if(mapRenderer.Grid.Get(cellPos.x, cellPos.y) == TileType.Wall)
+            TileType type = mapRenderer.Grid.Get(cellPos.x, cellPos.y);
+            if(type == TileType.Wall)
             {
                 Debug.Log("This is a wall tile.");
             }
-            else if (mapRenderer.Grid.Get(cellPos.x, cellPos.y) == TileType.Floor)
+            else if (type == TileType.Floor)
             {
                 Debug.Log("This is a floor tile.");
             }
