@@ -32,8 +32,7 @@ public class NeighbourDebugger : MonoBehaviour
     {
         if(mapRenderer.Grid == null)
         {
-            Debug.LogWarning("NeighbourDebugger: MapRenderer's Grid is null. Make sure the map is built before clicking.", this);
-            return;
+            return; // Grid not yet built, skip processing
         }
 
         if(Input.GetMouseButtonDown(0))
@@ -55,10 +54,14 @@ public class NeighbourDebugger : MonoBehaviour
             {
                 Debug.Log("This is an unknown tile type.");
             }
-            int wallNeighbors = mapRenderer.Grid.CountNeighbors(cellPos.x, cellPos.y, TileType.Wall, true);
-            Debug.Log($"Number of wall neighbors (including diagonals): {wallNeighbors}");
-            int floorNeighbors = mapRenderer.Grid.CountNeighbors(cellPos.x, cellPos.y, TileType.Floor, true);
-            Debug.Log($"Number of floor neighbors (including diagonals): {floorNeighbors}");
+            int wallNeighbors8way = mapRenderer.Grid.CountNeighbors(cellPos.x, cellPos.y, TileType.Wall, true);
+            Debug.Log($"Number of wall neighbors (including diagonals): {wallNeighbors8way}");
+            int floorNeighbors8way = mapRenderer.Grid.CountNeighbors(cellPos.x, cellPos.y, TileType.Floor, true);
+            Debug.Log($"Number of floor neighbors (including diagonals): {floorNeighbors8way}");
+            int wallNeighbors4way = mapRenderer.Grid.CountNeighbors(cellPos.x, cellPos.y, TileType.Wall, false);
+            Debug.Log($"Number of wall neighbors (excluding diagonals): {wallNeighbors4way}");
+            int floorNeighbors4way = mapRenderer.Grid.CountNeighbors(cellPos.x, cellPos.y, TileType.Floor, false);
+            Debug.Log($"Number of floor neighbors (excluding diagonals): {floorNeighbors4way}");
         }
     }
 }
