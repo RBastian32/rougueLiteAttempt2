@@ -1,0 +1,23 @@
+# Same line endings (LF) on Mac and Windows, so files don't show as changed
+# after a round trip between the two. Unity reads LF fine on both.
+* text=auto eol=lf
+
+# Binary assets: never touch their bytes.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.psd binary
+*.tga binary
+*.tif binary
+*.exr binary
+*.fbx binary
+*.wav binary
+*.mp3 binary
+*.ogg binary
+*.ttf binary
+*.otf binary
+*.pdf binary
+*.dll binary
+*.so binary
+*.dylib binary
+*.unitypackage binary
