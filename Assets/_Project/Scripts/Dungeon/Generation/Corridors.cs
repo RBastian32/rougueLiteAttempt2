@@ -65,6 +65,16 @@ namespace Roguelite.Dungeon
             //              - vertical on column from.x, from from.y to to.y
             //              - then horizontal on row to.y, from from.x to to.x
             //          Pass `thickness` through to both calls.
+            if(horizontalFirst)
+            {
+                CarveHorizontal(grid, from.x, to.x, from.y, thickness);
+                CarveVertical(grid, from.y, to.y, to.x, thickness);
+            }
+            else
+            {
+                CarveVertical(grid, from.y, to.y, from.x, thickness);
+                CarveHorizontal(grid, from.x, to.x, to.y, thickness);
+            }
         }
     }
 }
