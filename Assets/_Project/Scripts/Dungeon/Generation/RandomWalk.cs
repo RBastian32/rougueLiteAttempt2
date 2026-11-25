@@ -52,6 +52,19 @@ namespace Roguelite.Dungeon
             //              - move one cell that way, then clamp back inside the border
             //              - make the new cell Floor
             //          Vector2Int supports +, so `pos + dir` is the neighbouring cell.
+
+            Vector2Int pos = ClampToInterior(grid, start);
+            grid.SetCell(pos.x, pos.y, CellType.Floor);
+            int pickDirection = rng.Next(4);
+            Vector2Int direction = mapGrid.Directions4[pickDirection];
+            for(int i = 0; i < steps; i++)
+            {
+                pos += direction;
+                pos = ClampToInterior(grid, pos);
+                grid.SetCell(pos.x, pos.y, CellType.Floor);
+                pickDirection = rng.Next(4);
+                direction = mapGrid.Directions4[pickDirection];
+            }
         }
     }
 }
