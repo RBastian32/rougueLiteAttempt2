@@ -46,7 +46,7 @@ namespace Roguelite.Dungeon
             int MaxY = Mathf.Max(y1, y2);
             int height = MaxY - MinY + 1;
             int leftX = x - thickness / 2;
-            grid.FillRect(new RectInt(leftX, MinY, thickness, height), TileType).Floor;
+            grid.FillRect(new RectInt(leftX, MinY, thickness, height), TileType.Floor);
         }
 
         // Carves an L-shaped corridor from `from` to `to`.
