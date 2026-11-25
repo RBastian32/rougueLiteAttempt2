@@ -35,11 +35,35 @@ namespace Roguelite.Dungeon
             // TODO C1: BASE CASE. If it can't be cut either way, this area is a leaf:
             //          return a new list containing just `area`.
             //          (List initialiser syntax: new List<RectInt> { area })
-
+            if(!canCutVertically && !canCutHorizontally)
+            {
+                return new List<RectInt> { area };
+            }
             // TODO C2: CHOOSE THE DIRECTION. Make a bool cutVertically:
             //          - if only one direction is possible, use that one
             //          - if both are possible, cut across the LONGER side (wide → vertical cut,
             //            tall → horizontal cut); if it's square, pick randomly with rng.Next(2) == 0
+            bool cutVertically;
+            if(canCutVertically != canCutHorizontally)
+            {
+                cutVertically = canCutVertically;
+            }
+            else
+            {
+                if(area.width > area.height)
+                {
+                    cutVertically = true;
+                }
+                else if(area.width < area.height)
+                {
+                    cutVertically = false;
+                }
+                else
+                {
+                    cutVertically = rng.Next(2) == 0;
+                }
+            }
+        
 
             // TODO C3: CHOOSE WHERE TO CUT, and build the two halves.
             //          The cut is a distance from the area's left edge (or bottom edge). Both halves

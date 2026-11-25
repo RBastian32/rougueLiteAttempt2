@@ -56,7 +56,12 @@ namespace Roguelite.Dungeon
         //             to                                  ┌──── to
         //             │                                   │
         //   from ─────┘  (turns at to.x, from.y)      from    (turns at from.x, to.y)
-        public static void CarveL(MapGrid grid, Vector2Int from, Vector2Int to, bool horizontalFirst, int thickness = 1)
+        public static void CarveL
+                (MapGrid grid, 
+                Vector2Int from, 
+                Vector2Int to, 
+                bool horizontalFirst, 
+                int thickness = 2)
         {
             // TODO B3: If horizontalFirst:
             //              - horizontal on row from.y, from from.x to to.x
