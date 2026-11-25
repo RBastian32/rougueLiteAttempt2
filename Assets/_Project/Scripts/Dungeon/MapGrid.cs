@@ -1,7 +1,7 @@
 using System;
 using System.Text;
 using UnityEngine;
-using UnityEngine.Tilemaps;
+
 
 namespace Roguelite.Dungeon
 {
@@ -83,6 +83,7 @@ namespace Roguelite.Dungeon
             tiles = new TileType[Size];
             
         }
+        
 
         // Is (x, y) inside the grid?
         public bool InBounds(int x, int y)

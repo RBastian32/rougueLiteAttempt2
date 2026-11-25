@@ -20,11 +20,13 @@ namespace Roguelite.Dungeon
         // 1 .. Width - 2 and y stays in 1 .. Height - 2. The border ring is never dug.
         public static Vector2Int ClampToInterior(MapGrid grid, Vector2Int p)
         {
-            // TODO A1: Clamp p.x into 1 .. grid.Width - 2 and p.y into 1 .. grid.Height - 2,
-            //          then return them as a new Vector2Int.
-            //          Mathf.Clamp(value, min, max) works on ints as well as floats.
-            //          Then delete the line below.
-            throw new System.NotImplementedException("TODO A1");
+            // p is the proposed tile. Index 0 and the last index (size - 1) are walls,
+            // so clamp each coordinate to 1 through size - 2 along its own axis.
+            // Return the adjusted x and y together as the tile the walker can carve.
+            int x = Mathf.Clamp(p.x, 1, grid.Width - 2);
+            int y = Mathf.Clamp(p.y, 1, grid.Height - 2);
+
+            return new Vector2Int(x, y);
         }
 
         // Digs a cave into `grid`: starts at `start` and takes `steps` random steps,
