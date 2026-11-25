@@ -30,12 +30,23 @@ namespace Roguelite.Dungeon
             //                (careful: last - first + 1)
             //              - it's `thickness` rows tall, centred on y: the bottom row is
             //                y - thickness / 2 (same trick as the Lesson 2 corridor).
+            int MinX = Mathf.Min(x1, x2);
+            int MaxX = Mathf.Max(x1, x2);
+            int width = MaxX - MinX + 1;
+            int bottomY = y - thickness / 2;
+            grid.FillRect(new RectInt(MinX, bottomY, width, thickness), TileType.Floor);
+            
         }
 
         // The same, but vertical: column x, from y1 to y2 inclusive.
         public static void CarveVertical(MapGrid grid, int y1, int y2, int x, int thickness = 1)
         {
             // TODO B2: The mirror image of B1. Swap the roles of x and y.
+            int MinY = Mathf.Min(y1, y2);
+            int MaxY = Mathf.Max(y1, y2);
+            int height = MaxY - MinY + 1;
+            int leftX = x - thickness / 2;
+            grid.FillRect(new RectInt(leftX, MinY, thickness, height), TileType).Floor;
         }
 
         // Carves an L-shaped corridor from `from` to `to`.

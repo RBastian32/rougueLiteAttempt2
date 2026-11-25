@@ -28,6 +28,16 @@ namespace Roguelite.Dungeon
         [Tooltip("If set, this object is moved to the middle of the map when it's built.")]
         [SerializeField] private Transform player;
 
+        // TEMPORARY cave preview, so you can watch Exercise A's random walk in the game.
+        // Exercise E replaces this with a proper generator dropdown: delete it then.
+        [Header("Cave preview (temporary, until Exercise E)")]
+        [SerializeField] private bool previewCave = true;
+        [Tooltip("0 = a different random cave every time")]
+        [SerializeField] private int caveSeed = 0;
+        [SerializeField] private int caveSteps = 800;
+        [Tooltip("Widen every dug cell into a 2x2 block, so no passage is narrower than 2 tiles")]
+        [SerializeField] private bool widePassages = true;
+
         // Other scripts (enemies, the minimap...) will read the map through this later.
         // "private set" means only this class can replace it.
         public MapGrid Grid { get; private set; }
@@ -52,10 +62,51 @@ namespace Roguelite.Dungeon
             }
 
             //Grid = CreateTestRoom();
-            Grid = CreateTwoRooms();
+            Grid = previewCave ? CreateCavePreview() : CreateTwoRooms();
             Debug.Log("Built map:\n" + Grid);   // Uses MapGrid.ToString() from Exercise B.
             Draw(Grid);
             PlacePlayer();
+        }
+
+        // TEMPORARY: one random walk from the middle of the map, using your RandomWalk.Carve.
+        // The walk starts at the middle cell, which is also where PlacePlayer puts you,
+        // so you always spawn on floor.
+        private MapGrid CreateCavePreview()
+        {
+            var grid = new MapGrid(width, height);   // starts as solid Wall
+            int usedSeed = caveSeed != 0 ? caveSeed : System.Environment.TickCount;
+            Debug.Log($"Cave seed: {usedSeed}");
+            var rng = new System.Random(usedSeed);
+            RandomWalk.Carve(grid, rng, new Vector2Int(width / 2, height / 2), caveSteps);
+            if (widePassages)
+                WidenFloors(grid);
+            return grid;
+        }
+
+        // TEMPORARY: turns every floor cell into a 2x2 block of floor (the cell, plus the
+        // ones to its right, above, and above-right). The walker's path is a chain of cells
+        // that touch side by side, so the blocks overlap along it and every passage ends up
+        // at least 2 tiles wide.
+        private static void WidenFloors(MapGrid grid)
+        {
+            // STEP 1: remember where the floor is BEFORE changing anything. If we widened
+            // while scanning, each new floor cell would get widened again further along the
+            // same scan, and the floor would spread across the whole map.
+            var floors = new System.Collections.Generic.List<Vector2Int>();
+            for (int x = 0; x < grid.Width; x++)
+                for (int y = 0; y < grid.Height; y++)
+                    if (grid.Get(x, y) == TileType.Floor)
+                        floors.Add(new Vector2Int(x, y));
+
+            // STEP 2: dig a 2x2 block at each one. The block's bottom-left corner is the
+            // cell itself, moved back one step if the block would reach the border wall
+            // (the largest interior x is Width - 2, so a 2-wide block may start at Width - 3).
+            foreach (Vector2Int c in floors)
+            {
+                int bx = Mathf.Min(c.x, grid.Width - 3);
+                int by = Mathf.Min(c.y, grid.Height - 3);
+                grid.FillRect(new RectInt(bx, by, 2, 2), TileType.Floor);
+            }
         }
 
         private MapGrid CreateTestRoom()
