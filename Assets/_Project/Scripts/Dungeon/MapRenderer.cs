@@ -37,11 +37,9 @@ namespace Roguelite.Dungeon
         [Tooltip("If set, this object is moved to the middle of the map when it's built.")]
         [SerializeField] private Transform player;
 
-        // TEMPORARY cave preview, so you can watch Exercise A's random walk in the game.
-        // Exercise E replaces this with a proper generator dropdown: delete it then.
         [Header("Generation")]
         [SerializeField] private GeneratorType generator = GeneratorType.Bsp;
-        [Tooltip("If 0, a random seed is used each time. Otherwise the same seed always gives the same cave.")]
+        [Tooltip("If 0, a random seed is used each time. Otherwise the same seed always gives the same map.")]
         [SerializeField] private int seed = 0;
         [SerializeField] private int caveSteps = 1500;
 
@@ -67,23 +65,51 @@ namespace Roguelite.Dungeon
                 Debug.LogError("MapRenderer: assign both Tilemaps and both Tiles in the Inspector.", this);
                 return;
             }
+            
+            
+            int usedSeed = seed != 0 ? seed : System.Environment.TickCount;   // a different seed each time
+            Debug.Log($"Seed: {usedSeed}");
 
             //Grid = CreateTestRoom();
-            Grid =  CreateTwoRooms();
+            Vector2Int spawn;
+            switch(generator)
+            {
+                case GeneratorType.TestRoom:
+                    {
+                        Grid = CreateTestRoom();
+                        spawn = new Vector2Int(width / 2, height / 2);
+                        break;
+                    }
+                case GeneratorType.TwoRooms:
+                    {
+                        Grid = CreateTwoRooms();
+                        spawn = new Vector2Int(width / 2, height / 2);
+                        break;
+                    }
+                case GeneratorType.CavePreview:
+                    {
+                        DungeonResult result = DungeonGenerator.GenerateCave(width, height, usedSeed, caveSteps);
+                        Grid = result.Grid;
+                        spawn = result.Spawn;
+                        break;
+                    }
+                case GeneratorType.Bsp:
+                    {
+                        DungeonResult result = DungeonGenerator.GenerateBsp(width, height, usedSeed);
+                        Grid = result.Grid;
+                        spawn = result.Spawn;
+                        break;
+                    }
+                default:
+                    Debug.LogError($"MapRenderer: unknown generator {generator}.", this);
+                    return;
+
+            }
+
             Debug.Log("Built map:\n" + Grid);   // Uses MapGrid.ToString() from Exercise B.
             Draw(Grid);
             PlacePlayer();
         }
-
-        // TEMPORARY: one random walk from the middle of the map, using your RandomWalk.Carve.
-        // The walk starts at the middle cell, which is also where PlacePlayer puts you,
-        // so you always spawn on floor.
-        
-
-        // TEMPORARY: turns every floor cell into a 2x2 block of floor (the cell, plus the
-        // ones to its right, above, and above-right). The walker's path is a chain of cells
-        // that touch side by side, so the blocks overlap along it and every passage ends up
-        // at least 2 tiles wide.
 
 
         private MapGrid CreateTestRoom()
