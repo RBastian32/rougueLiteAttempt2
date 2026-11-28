@@ -80,6 +80,11 @@ namespace Roguelite.Dungeon
             // TODO D5: Create result.Grid and a System.Random from the seed. Start in the
             //          middle of the map, run RandomWalk.Carve, and spawn the player at
             //          the start cell.
+            result.Grid = new MapGrid(width, height);
+            System.Random rng = new System.Random(seed);
+            Vector2Int start = new Vector2Int(width / 2, height / 2);
+            RandomWalk.Carve(result.Grid, rng, start, steps);
+            result.Spawn = start;
 
             return result;
         }
