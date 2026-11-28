@@ -30,7 +30,7 @@ namespace Roguelite.Dungeon
             }
 
             RectInt first, second; // the two halves after the cut
-            RectInt[] halves;      // the two halves as an array, so we can loop over them
+        
 
             // A cut leaves two pieces that must BOTH be at least minLeafSize,
             // so the area must be at least twice that in the direction we cut.
@@ -112,14 +112,26 @@ namespace Roguelite.Dungeon
 
             // TODO C5: (1) Guard: if maxWidth or maxHeight is less than minRoomSize, throw an
             //              ArgumentException (the leaf is too small for any room).
+            if(maxWidth < minRoomSize || maxHeight < minRoomSize)
+            {
+                throw new System.ArgumentException($"Leaf is too small for any room. Max room size: {maxWidth} x {maxHeight}, Min room size: {minRoomSize}");
+            }
             //          (2) Pick the room's width in minRoomSize .. maxWidth INCLUSIVE, and the
             //              same for height. (Remember Next's max is exclusive.)
+            int roomWidth = rng.Next(minRoomSize, maxWidth + 1);
+            int roomHeight = rng.Next(minRoomSize, maxHeight + 1);
             //          (3) Pick its x so that it sits inside the margins:
             //              smallest x = leaf.xMin + margin
             //              largest x  = leaf.xMax - margin - width   (so x + width ≤ xMax - margin)
             //              Same for y. Then return the new RectInt.
             //          Then delete the line below.
-            throw new System.NotImplementedException("TODO C5");
+            int xMin = leaf.xMin + margin;
+            int xMax = leaf.xMax - margin - roomWidth + 1;
+            int ymin = leaf.yMin + margin;
+            int ymax = leaf.yMax - margin - roomHeight + 1;
+
+            return new RectInt(rng.Next(xMin, xMax), rng.Next(ymin, ymax), roomWidth, roomHeight);
+
         }
     }
 }
