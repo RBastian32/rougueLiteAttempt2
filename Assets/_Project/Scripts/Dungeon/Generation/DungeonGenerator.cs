@@ -41,15 +41,24 @@ namespace Roguelite.Dungeon
             // TODO D1: Create result.Grid (width x height, starts as all Wall) and ONE
             //          System.Random from the seed. Split the area inside the 1-tile border,
             //          new RectInt(1, 1, width - 2, height - 2), into leaves with Bsp.Split.
+            result.Grid = new MapGrid(width, height);
+            System.Random rng = new System.Random(seed);
+            List<RectInt> leaves = Bsp.Split(new RectInt(1, 1, width - 2, height - 2), minLeafSize, rng);
 
             // TODO D2: For each leaf: place a room in it (Bsp.PlaceRoom), carve the room
             //          as Floor, and add it to result.Rooms.
+            for(int i = 0; i < leaves.Count; i++)
+            {
+                RectInt room = Bsp.PlaceRoom(leaves[i], margin, minRoomSize, rng);
+                result.Grid.FillRect(room, TileType.Floor);
+                result.Rooms.Add(room);
+            }
 
             // TODO D3: Join each room to the NEXT one in the list (room 0 → 1, 1 → 2, ...)
             //          with Corridors.CarveL between their centres. Pick horizontalFirst
             //          randomly (rng.Next(2) == 0) and pass corridorThickness.
             //          Careful with the loop bound: the last room has no "next" room.
-
+            
             // TODO D4: The player spawns in the centre of the first room.
             //          Set result.Spawn.
 
