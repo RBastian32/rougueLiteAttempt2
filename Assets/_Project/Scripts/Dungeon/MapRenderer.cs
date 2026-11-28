@@ -108,7 +108,7 @@ namespace Roguelite.Dungeon
 
             Debug.Log("Built map:\n" + Grid);   // Uses MapGrid.ToString() from Exercise B.
             Draw(Grid);
-            PlacePlayer();
+            PlacePlayer(spawn);
         }
 
 
@@ -217,7 +217,7 @@ namespace Roguelite.Dungeon
             
         }
 
-        private void PlacePlayer()
+        private void PlacePlayer(Vector2Int spawn)
         {
             // TODO C3: (1) If player is null, return.
             //          (2) Work out the middle cell of the grid (Grid.Width / 2, Grid.Height / 2).
@@ -227,11 +227,12 @@ namespace Roguelite.Dungeon
             //          Grid coordinates (which cell) and world coordinates (where in the scene)
             //          are different things. The Tilemap knows how to convert between them,
             //          even if you later move or scale it.
+            
             if(player == null)
             {
                 return;
             }
-            Vector3Int middleCell = new Vector3Int(Grid.Width / 2, Grid.Height / 2, 0);
+            Vector3Int middleCell = new Vector3Int(spawn.x, spawn.y, 0);
             Vector3 worldPosition = floorTilemap.GetCellCenterWorld(middleCell);
             player.position = worldPosition;
         }
