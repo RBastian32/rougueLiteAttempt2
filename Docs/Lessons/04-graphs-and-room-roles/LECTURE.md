@@ -1,6 +1,6 @@
 # Lecture 4: Graphs, Linking Rooms, and Room Roles
 
-**Companion slides:** lecture slides · guided notes (links in [the course README](../README.md)).
+**Companion slides:** [lecture slides](https://claude.ai/artifact/M6j2crh4Mu2RPWz2jjYyCp) · [guided notes](https://claude.ai/artifact/3ozzBuNVeEKFvPo9diS2Rh).
 This file is the written reference: the same material, for looking things up.
 **Lab:** [README.md](README.md). Section numbers (§) here match the lab handout.
 

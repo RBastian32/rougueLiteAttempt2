@@ -1,7 +1,7 @@
 # Lab 4: Graphs, linking rooms, and room roles
 
-**Pre-lab:** work through the Lecture 4 slides while filling in the guided-notes slides (links in
-[the course README](../README.md)). The **LAB PREVIEW** slides at the end of each unit show the
+**Pre-lab:** work through the [Lecture 4 slides](https://claude.ai/artifact/M6j2crh4Mu2RPWz2jjYyCp) while filling in the
+[guided-notes slides](https://claude.ai/artifact/3ozzBuNVeEKFvPo9diS2Rh). The **LAB PREVIEW** slides at the end of each unit show the
 plan for each TODO. [LECTURE.md](LECTURE.md) is the written reference (§ = its sections).
 
 **Deliverable:** press Play and get a BSP dungeon whose rooms are joined by a minimum spanning

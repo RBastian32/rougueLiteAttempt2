@@ -45,8 +45,8 @@ game folders (`Assets/_Project/Scripts/...`), because every lab builds a piece o
 |---|---|---|---|
 | 1 | MonoBehaviour lifecycle, physics, vectors | Player movement | ✅ |
 | 2 | [Spatial data: time, vectors, grids, Tilemaps](02-grid-and-tilemap/LECTURE.md) · [lecture slides](https://claude.ai/artifact/4WEHL1yUd5v2KUy2oSiKQP) · [guided notes](https://claude.ai/artifact/FwxucXJn12wV3n6R9VXWej) | [Lab 2](02-grid-and-tilemap/README.md): camera, map grid, renderer (+ all 6 challenges) | ✅ |
-| 3 | [Procedural generation: seeds, random walk, recursion, BSP](03-procedural-generation/LECTURE.md) · [lecture slides](https://claude.ai/artifact/7yhR4sMjhn72CYKUPDYw9k) · [guided notes](https://claude.ai/artifact/FVufEG56hJnzX9TRcf75UY) | [Lab 3](03-procedural-generation/README.md): random walk, corridors, BSP, generator | 👉 current |
-| 4 | Graphs: adjacency, minimum spanning trees, BFS | Linking rooms | |
+| 3 | [Procedural generation: seeds, random walk, recursion, BSP](03-procedural-generation/LECTURE.md) · [lecture slides](https://claude.ai/artifact/7yhR4sMjhn72CYKUPDYw9k) · [guided notes](https://claude.ai/artifact/FVufEG56hJnzX9TRcf75UY) | [Lab 3](03-procedural-generation/README.md): random walk, corridors, BSP, generator | ✅ |
+| 4 | [Graphs: adjacency lists, minimum spanning trees, BFS, room roles](04-graphs-and-room-roles/LECTURE.md) · [lecture slides](https://claude.ai/artifact/M6j2crh4Mu2RPWz2jjYyCp) · [guided notes](https://claude.ai/artifact/3ozzBuNVeEKFvPo9diS2Rh) | [Lab 4](04-graphs-and-room-roles/README.md): room graph, Prim, BFS, loops and roles, Gizmos | 👉 current |
 | 5 | AI: state machines, A* pathfinding, priority queues | Enemies | |
 | 6 | Events, delegates, interfaces | Combat & health | |
 | 7 | Data-driven design: ScriptableObjects | Enemy and item data | |

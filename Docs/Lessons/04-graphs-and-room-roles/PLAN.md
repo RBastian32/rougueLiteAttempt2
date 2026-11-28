@@ -1,8 +1,7 @@
 # Lesson 4 plan: Graphs, linking rooms, and room roles
 
-*Draft for review. Nothing here is built yet. Once the plan is agreed, it becomes the lecture
-slides, the guided-notes slides, `LECTURE.md`, the lab handout (`README.md`), `HINTS.md`, the
-`Solutions/` folder, and TODO stubs with EditMode tests, in the same format as Lesson 3.*
+*Approved and built on 2026-11-28: see the lab handout ([README.md](README.md)), [LECTURE.md](LECTURE.md), the
+[lecture slides](https://claude.ai/artifact/M6j2crh4Mu2RPWz2jjYyCp) and the [guided notes](https://claude.ai/artifact/3ozzBuNVeEKFvPo9diS2Rh).*
 
 ## Why this lesson, in our game
 
