@@ -10,6 +10,10 @@ namespace Roguelite.Dungeon
         public MapGrid Grid;
         public List<RectInt> Rooms = new List<RectInt>();   // empty for caves
         public Vector2Int Spawn;                             // the cell the player starts on
+
+        // LESSON 4 (done for you): which rooms are joined by a corridor, and what each room is for.
+        public RoomGraph Graph;                              // null for caves
+        public RoomType[] Roles;                             // Roles[i] is the role of Rooms[i]; null for caves
     }
 
     // LESSON 3 - EXERCISE D: Putting the pieces together.
@@ -28,7 +32,8 @@ namespace Roguelite.Dungeon
 
         // A BSP dungeon: rooms in a binary tree of leaves, joined in order by L-shaped corridors.
         public static DungeonResult GenerateBsp(int width, int height, int seed,
-            int minLeafSize = 10, int margin = 1, int minRoomSize = 4, int corridorThickness = 2)
+            int minLeafSize = 10, int margin = 1, int minRoomSize = 4, int corridorThickness = 2,
+            int loopMaxDistance = 20, double loopChance = 0.25)   // Lesson 4: settings for Loops.AddExtra
         {
             // Guard clauses (done for you). Read them: they say which settings can't work.
             if (minLeafSize < minRoomSize + 2 * margin)
@@ -65,6 +70,18 @@ namespace Roguelite.Dungeon
                 bool horizontalFirst = rng.Next(2) == 0;
                 Corridors.CarveL(result.Grid, from, to, horizontalFirst, corridorThickness);
             }
+            // TODO E1 (LESSON 4): REPLACE the D3 chain above with a graph. Delete the D3 for loop, then:
+            //          (1) Make a List<Vector2Int> centres with Center(room) of every room, in the
+            //              same order as result.Rooms, so index i means room i everywhere.
+            //          (2) result.Graph = SpanningTree.Prim(centres);
+            //              Loops.AddExtra(result.Graph, centres, loopMaxDistance, loopChance, rng);
+            //          (3) Carve ONE L-shaped corridor per edge:
+            //              foreach ((int a, int b) in result.Graph.Edges()) { ... CarveL between
+            //              centres[a] and centres[b], horizontalFirst = rng.Next(2) == 0 as before ... }
+            //          (4) result.Roles = RoomRoles.Assign(result.Graph, 0, rng);
+            //          Keep D4 below as it is: room 0 is the Spawn room, so the player starts there.
+            //          Check your work: the E1 tests in GraphTests.cs, and the D tests must stay green.
+
             // TODO D4: The player spawns in the centre of the first room.
             //          Set result.Spawn.
             result.Spawn = Center(result.Rooms[0]);
