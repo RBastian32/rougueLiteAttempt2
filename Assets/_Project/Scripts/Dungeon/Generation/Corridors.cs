@@ -61,7 +61,7 @@ namespace Roguelite.Dungeon
                 Vector2Int from, 
                 Vector2Int to, 
                 bool horizontalFirst, 
-                int thickness = 2)
+                int thickness = 1)
         {
             // TODO B3: If horizontalFirst:
             //              - horizontal on row from.y, from from.x to to.x

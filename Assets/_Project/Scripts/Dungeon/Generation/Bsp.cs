@@ -25,7 +25,12 @@ namespace Roguelite.Dungeon
         {
             // Guard clause (done for you). With 0 or less, cuts could go on forever.
             if (minLeafSize < 1)
+            {
                 throw new System.ArgumentException($"minLeafSize must be at least 1, got {minLeafSize}");
+            }
+
+            RectInt first, second; // the two halves after the cut
+            RectInt[] halves;      // the two halves as an array, so we can loop over them
 
             // A cut leaves two pieces that must BOTH be at least minLeafSize,
             // so the area must be at least twice that in the direction we cut.
@@ -72,11 +77,29 @@ namespace Roguelite.Dungeon
             //          Vertical:   first  = new RectInt(area.xMin, area.yMin, cut, area.height)
             //                      second = new RectInt(area.xMin + cut, area.yMin, area.width - cut, area.height)
             //          Horizontal: the same idea on y.
+            int cut;
+            if(cutVertically)
+            {
+                cut = rng.Next(minLeafSize, area.width - minLeafSize + 1);
+                first = new RectInt(area.xMin, area.yMin, cut, area.height);
+                second = new RectInt(area.xMin + cut, area.yMin, area.width - cut, area.height);
+            }
+            else
+            {
+                cut = rng.Next(minLeafSize, area.height - minLeafSize + 1);
+                first = new RectInt(area.xMin, area.yMin, area.width, cut);
+                second = new RectInt(area.xMin, area.yMin + cut, area.width, area.height - cut);
+            }
 
             // TODO C4: RECURSE. Split both halves, put all the leaves into one list, return it.
             //          list.AddRange(otherList) appends every item of otherList.
             //          Then delete the line below.
-            return new List<RectInt>();
+            
+            List<RectInt> leaves = new List<RectInt>();
+            leaves.AddRange(Split(first, minLeafSize, rng));
+            leaves.AddRange(Split(second, minLeafSize, rng));
+
+            return leaves;
         }
 
         // Picks a random room that fits inside `leaf`, keeping at least `margin` cells of rock
