@@ -58,9 +58,16 @@ namespace Roguelite.Dungeon
             //          with Corridors.CarveL between their centres. Pick horizontalFirst
             //          randomly (rng.Next(2) == 0) and pass corridorThickness.
             //          Careful with the loop bound: the last room has no "next" room.
-            
+            for(int i = 0; i < result.Rooms.Count - 1; i++)
+            {
+                Vector2Int from = Center(result.Rooms[i]);
+                Vector2Int to = Center(result.Rooms[i + 1]);
+                bool horizontalFirst = rng.Next(2) == 0;
+                Corridors.CarveL(result.Grid, from, to, horizontalFirst, corridorThickness);
+            }
             // TODO D4: The player spawns in the centre of the first room.
             //          Set result.Spawn.
+            result.Spawn = Center(result.Rooms[0]);
 
             return result;
         }
